@@ -1,0 +1,18 @@
+<p>This is the partial for view 1. </p>
+
+<p>
+
+<div ng-controller="DatepickerCtrl">
+  <p>Date:: <em>{{dt | date:'d.M.yyyy' }}</em></p>
+
+    <div style="display:inline-block; min-height:290px;">
+      <div class="well well-sm" ng-model="dt" ng-change="dateChanged()">
+         <datepicker show-weeks="false" starting-day="1"></datepicker>
+      </div>
+    </div>
+    <div>
+      <a href="#/day/{{dt | date:'dd.MM.yyyy' }}">GO</a>
+</div>
+
+
+</p>

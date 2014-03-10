@@ -1,0 +1,70 @@
+<div class="container-fluid">
+  <div class="row-fluid">
+  <accordion close-others="false">
+  <accordion-group heading="Insérer une nouvelle entrée pour le {{dayId}}" is-open="true">
+
+    <form class="form-horizontal" role="form">
+    <div class="form-group">
+      <label for="inputLastName" class="col-sm-3 control-label">Nom</label>
+      <div class="col-sm-9">
+        <input class="form-control" id="inputLastName" placeHolder="Nom" ng-model="newInput.lastName"></input>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="inputFirstName" class="col-sm-3 control-label">Prénom</label>
+      <div class="col-sm-9">
+        <input class="form-control" id="inputFirstName" placeHolder="Prénom" ng-model="newInput.firstName"></input>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="inputBirthDate" class="col-sm-3 control-label">Date de naissance</label>
+      <div class="col-sm-9">
+        <input class="form-control" id="inputBirthDate" placeHolder="Date de naissace" ng-model="newInput.birthDate"></input>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="inputFullPrice" class="col-sm-3 control-label">Prix total</label>
+      <div class="col-sm-9">
+        <input class="form-control" id="inputFullPrice" placeHolder="Prix total" ng-model="newInput.fullPrice"></input>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="inputRebate" class="col-sm-3 control-label">Rabais (en %)</label>
+      <div class="col-sm-9">
+        <input class="form-control" id="inputRebate" placeHolder="Rabais"  ng-model="newInput.rebate"></input>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="col-sm-offset-3 col-sm-9">
+       <button type="button" class="btn btn-default"><i class="glyphicon glyphicon-plus"></i> Ajouter</button>
+      </div>
+    </div>
+    </form>
+    </accordion-group>
+    </accorion>
+
+    <table class="table striped-table">
+      <tr>
+        <th>Date</th>
+        <th>Nom</th>
+        <th>Prénom</th>
+        <th>Date de naissance</th>
+        <th>Prix de base</th>
+        <th>Rabais</th>
+        <th>Prix avec Rabais</th>
+      <tr>
+
+      <tr ng-repeat="consult in consults">
+        <td>{{consult.consultDate | date:'dd.MM.yyyy'}}</td>
+        <td>{{consult.firstName}}</td>
+        <td>{{consult.lastName}}</td>
+        <td>{{consult.birthDate}}</td>
+        <td>{{consult.fullPrice}}</td>
+        <td>{{consult.rebate}}</td>
+        <td>{{consult.fullPrice * (1 - consult.rebate)}}</td>
+      </tr>
+    </table>
+    
+  </div>
+</div>
+
