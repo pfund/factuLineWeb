@@ -2,8 +2,13 @@
 
 /* Services */
 
+var factuLineServices = angular.module('myApp.services', ['ngResource']);
 
-// Demonstrate how to register services
-// In this case it is a simple value service.
-angular.module('myApp.services', []).
-  value('version', '0.1');
+factuLineServices.factory('FactuLineRest', ['$resource',
+  function($resource){
+    return $resource('http://localhost:8080/factuLineRest/consult/:consultId', {}, {
+      query: {method:'GET', params:{consultId:''}, isArray:true},
+      post: {method:'POST'}
+    });
+ }]);
+

@@ -19,6 +19,8 @@ config(['$routeProvider', function($routeProvider) {
 
 
 function Consult() {
+  this.id = null;
+  this.order = 0;
   this.firstName = "";
   this.lastName = "";
   this.birthDate = null;
