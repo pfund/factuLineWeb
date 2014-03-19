@@ -1,7 +1,7 @@
 <div class="container-fluid">
   <div class="row-fluid">
   <accordion close-others="false">
-  <accordion-group heading="Insérer une nouvelle entrée pour le {{dayId}}" is-open="true">
+  <accordion-group heading="Insérer une nouvelle entrée pour le {{dateConsult | date:'dd.MM.yyyy'}}" is-open="true">
 
     <form class="form-horizontal" role="form">
     <div class="form-group">
@@ -51,25 +51,23 @@
 
     <table class="table striped-table">
       <tr>
-        <th>id</th>
-        <th>Date</th>
         <th>Nom</th>
         <th>Prénom</th>
         <th>Date de naissance</th>
         <th>Prix de base</th>
         <th>Rabais</th>
-        <th>Prix avec Rabais</th>
+	<th>Prix avec Rabais</th>
+	<th></th>
       <tr>
 
       <tr ng-repeat="consult in consults">
-        <td>{{consult.id}}</td> 
-        <td>{{consult.consultDate | date:'dd.MM.yyyy'}}</td>
         <td>{{consult.firstName}}</td>
         <td>{{consult.lastName}}</td>
-        <td>{{consult.birthDate}}</td>
+        <td>{{consult.birthDate | date:'dd.MM.yyyy'}}</td>
         <td>{{consult.fullPrice}}</td>
         <td>{{consult.rebate}}</td>
-        <td>{{consult.fullPrice * (1 - consult.rebate)}}</td>
+	<td>{{consult.fullPrice * (1 - consult.rebate)}}</td>
+	<td><i class="glyphicon glyphicon-trash" ng-click="delete(consult.id)" title="id: {{consult.id}}"></icon></td>
       </tr>
     </table>
     
