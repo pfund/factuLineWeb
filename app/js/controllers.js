@@ -10,17 +10,25 @@ angular.module('myApp.controllers', []).
 		  function($scope, $routeParams, FactuLineRest, ConsultsFactory) {
 
     $scope.dateConsult = moment($routeParams.dayId, "DD.MM.YYYY").toDate();
-    console.log($scope.dateConsult);
 
-    $scope.newInput = new Consult();
-    $scope.newInput.dateConsult = $scope.dateConsult;
-      
-//    FactuLineRest.query( function(data) {
-//      $scope.consults = data;
-//    });
+    $scope.getNextOrder = function() {
+      var maxOrder = 0;
+      for (var i = $scope.consults.length - 1; i >= 0; i--) {
+        if ($scope.consults[i].order > maxOrder) maxOrder = $scope.consults[i].order;
+      }
+      return maxOrder + 1;
+    };
+
+    $scope.createNewInput = function() {
+      $scope.newInput = new Consult();
+      $scope.newInput.dateConsult = $scope.dateConsult;
+      $scope.newInput.order = $scope.getNextOrder();
+    };
+
     ConsultsFactory.getByDateConsult({'dateConsult':$scope.dateConsult}, 
       function(data) {
         $scope.consults = data;
+        $scope.createNewInput();
       }
     );
 
@@ -40,17 +48,26 @@ angular.module('myApp.controllers', []).
           $scope.newInput.birthDate = momentBirthDate.toDate();
 	}
       }
-      $scope.consults.push($scope.newInput);
-      FactuLineRest.save({}, $scope.newInput);
-      $scope.newInput = new Consult();
-      $scope.newInput.dateConsult = $scope.dateConsult;
+      FactuLineRest.save({}, $scope.newInput, 
+        function(data) {
+          $scope.consults.push(data);
+
+          $scope.createNewInput();
+        }
+      );
     };
 
     $scope.delete = function(id) {
-      FactuLineRest.delete({'id':id});
-      FactuLineRest.query( function(data) {
-        $scope.consults = data;
-      });
+      FactuLineRest.delete({'id':id}, 
+        function() {
+          for (var i = $scope.consults.length - 1; i >= 0; i--) {
+            if ($scope.consults[i].id === id) {
+              $scope.consults.splice(i, 1);
+            }
+          }
+	  $scope.newInput.order = $scope.getNextOrder();
+	}
+      );
     };
     
   }])
