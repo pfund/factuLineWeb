@@ -11,6 +11,10 @@ angular.module('myApp.controllers', []).
 
     $scope.dateConsult = moment($routeParams.dayId, "DD.MM.YYYY").toDate();
 
+    $scope.sortConsults = function() {
+      $scope.consults.sort(function(a, b) {return a.order - b.order;});
+    };
+
     $scope.getNextOrder = function() {
       var maxOrder = 0;
       for (var i = $scope.consults.length - 1; i >= 0; i--) {
@@ -20,6 +24,8 @@ angular.module('myApp.controllers', []).
     };
 
     $scope.createNewInput = function() {
+      $scope.insertMode = true;
+
       $scope.newInput = new Consult();
       $scope.newInput.dateConsult = $scope.dateConsult;
       $scope.newInput.order = $scope.getNextOrder();
@@ -48,13 +54,30 @@ angular.module('myApp.controllers', []).
           $scope.newInput.birthDate = momentBirthDate.toDate();
 	}
       }
-      FactuLineRest.save({}, $scope.newInput, 
-        function(data) {
-          $scope.consults.push(data);
+      if ($scope.insertMode) {
+        FactuLineRest.save({}, $scope.newInput, 
+          function(data) {
+            $scope.consults.push(data);
+            $scope.sortConsults();
 
-          $scope.createNewInput();
-        }
-      );
+            $scope.createNewInput();
+          }
+        );
+      } else {
+        FactuLineRest.update($scope.newInput,
+          function(data) {
+            for (var i = $scope.consults.length - 1; i >= 0; i--) {
+              if ($scope.consults[i].id === $scope.newInput.id) {
+                $scope.consults.splice(i, 1);
+              }
+            }
+            $scope.consults.push(data);
+            $scope.sortConsults();
+
+            $scope.createNewInput();
+          }
+       );
+      }
     };
 
     $scope.delete = function(id) {
@@ -69,7 +92,16 @@ angular.module('myApp.controllers', []).
 	}
       );
     };
-    
+
+    $scope.modify = function(consult) {
+      $scope.insertMode = false;
+      $scope.newInput = JSON.parse(JSON.stringify(consult));
+      if (consult.birthDate) {
+        $scope.newInput.birthDate = moment(consult.birthDate).format("DD.MM.YYYY");
+      }
+      $scope.newInput.dateConsult = moment(consult.dateConsult).toDate();
+    };
+
   }])
 
 

@@ -9,6 +9,7 @@ factuLineServices.factory('FactuLineRest', ['$resource',
     return $resource('http://localhost:8080/factuLineRest/consult/:id', {}, {
       query: {method:'GET', params:{id:''}, isArray:true},
       post: {method:'POST'},
+      update: {method:'PUT', params:{id: '@id'}},
       delete: {method:'DELETE', params:{id: '@id'}}
     });
  }]);

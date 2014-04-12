@@ -1,0 +1,5 @@
+/Users/toma/Documents/Backups/mongodb/consultsLine/2014.04.12
+
+mongodump --collection consult --db factuLine
+
+
