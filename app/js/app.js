@@ -24,6 +24,9 @@ function Consult() {
   this.firstName = "";
   this.lastName = "";
   this.birthDate = null;
-  this.fullPrice = null;
+  this.consultationPrice = null;
   this.rebate = 0;
+  this.comment = "";
+  this.materialPrice = null;
+  this.medicamentPrice = null;
 };      

@@ -25,7 +25,7 @@
     <div class="form-group">
       <label for="inputFullPrice" class="col-sm-3 control-label">Prix total</label>
       <div class="col-sm-9">
-        <input class="form-control" id="inputFullPrice" placeHolder="Prix total" ng-model="newInput.fullPrice"></input>
+        <input class="form-control" id="inputFullPrice" placeHolder="Prix total" ng-model="newInput.consultationPrice"></input>
       </div>
     </div>
     <div class="form-group">
@@ -64,9 +64,9 @@
       <tr ng-repeat="consult in consults">
         <td>{{consult.firstName}}</td>
         <td>{{consult.lastName}}</td>
-        <td>{{consult.fullPrice}}</td>
+        <td>{{consult.consultationPrice}}</td>
         <td>{{consult.rebate}}</td>
-	<td>{{consult.fullPrice * (1 - consult.rebate)}}</td>
+	<td>{{consult.consultationPrice * (1 - consult.rebate)}}</td>
 	<td><i class="glyphicon glyphicon-trash" ng-click="delete(consult.id)" title="id: {{consult.id}}"></icon></td>
         <td><i class="glyphicon glyphicon-pencil" ng-click="modify(consult)"></icon></td>
       </tr>
