@@ -23,9 +23,21 @@
       </div>
     </div>
     <div class="form-group">
-      <label for="inputFullPrice" class="col-sm-3 control-label">Prix total</label>
+      <label for="inputFullPrice" class="col-sm-3 control-label">Prix consultation</label>
       <div class="col-sm-9">
-        <input class="form-control" id="inputFullPrice" placeHolder="Prix total" ng-model="newInput.consultationPrice"></input>
+        <input class="form-control" id="inputFullPrice" placeHolder="Prix consultation" ng-model="newInput.consultationPrice"></input>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="inputMaterialPrice" class="col-sm-3 control-label">Prix matériel</label>
+      <div class="col-sm-9">
+        <input class="form-control" id="inputMaterialPrice" placeHolder="Prix matériel" ng-model="newInput.materialPrice"></input>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="inputMedicamentPrice" class="col-sm-3 control-label">Prix médicaments</label>
+      <div class="col-sm-9">
+        <input class="form-control" id="inputMedicamentPrice" placeHolder="Prix médicaments" ng-model="newInput.medicamentPrice"></input>
       </div>
     </div>
     <div class="form-group">
@@ -38,6 +50,12 @@
       <label for="inputBirthDate" class="col-sm-3 control-label">Date de naissance</label>
       <div class="col-sm-9">
         <input class="form-control" id="inputBirthDate" placeHolder="Date de naissace" ng-model="newInput.birthDate"></input>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="inputComment" class="col-sm-3 control-label">Commentaire</label>
+      <div class="col-sm-9">
+        <textarea class="form-control" rows="3" id="inputComment" placeHolder="Commentaire" ng-model="newInput.comment"></textarea>
       </div>
     </div>
 
@@ -54,11 +72,12 @@
       <tr>
         <th>Prénom</th>
         <th>Nom</th>
-        <th>Prix de base</th>
+        <th>Prix consultation</th>
         <th>Rabais</th>
-	<th>Prix avec Rabais</th>
+	<th>Prix consult avec Rabais</th>
+	<th>Prix total</th>
 	<th></th>
-        <th></th>
+	<th></th>
       <tr>
 
       <tr ng-repeat="consult in consults">
@@ -67,6 +86,7 @@
         <td>{{consult.consultationPrice}}</td>
         <td>{{consult.rebate}}</td>
 	<td>{{consult.consultationPrice * (1 - consult.rebate)}}</td>
+	<td>{{consult.consultationPrice * (1 - consult.rebate) + consult.materialPrice + consult.medicamentPrice}}</td>
 	<td><i class="glyphicon glyphicon-trash" ng-click="delete(consult.id)" title="id: {{consult.id}}"></icon></td>
         <td><i class="glyphicon glyphicon-pencil" ng-click="modify(consult)"></icon></td>
       </tr>
