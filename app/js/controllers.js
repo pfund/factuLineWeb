@@ -29,6 +29,11 @@ angular.module('myApp.controllers', []).
       $scope.newInput = new Consult();
       $scope.newInput.dateConsult = $scope.dateConsult;
       $scope.newInput.order = $scope.getNextOrder();
+
+      var inputLastNameElement = document.getElementById("inputLastName");
+      if (inputLastNameElement) {
+        inputLastNameElement.focus();
+      }
     };
 
     ConsultsFactory.getByDateConsult({'dateConsult':$scope.dateConsult}, 
@@ -48,7 +53,7 @@ angular.module('myApp.controllers', []).
         }
         if (!momentBirthDate.isValid()) {
           // TODO alert the user and abort sending
-	  console.log("not valid");
+	  alert("Birth date not valid");
 	  return;
 	} else {
           $scope.newInput.birthDate = momentBirthDate.toDate();
@@ -102,6 +107,20 @@ angular.module('myApp.controllers', []).
       $scope.newInput.dateConsult = moment(consult.dateConsult).toDate();
     };
 
+    $scope.getDayConsultationPrice = function() {
+      if (!$scope.consults) return 0;
+
+      var sum = 0;
+      for (var i=0; i<$scope.consults.length; i++) {sum += $scope.consults[i].consultationPrice * (1 - $scope.consults[i].rebate);}
+      return sum;
+    };
+
+    $scope.getTotalDayPrice = function() {
+      if (!$scope.consults) return 0;
+      var sum = 0;
+      for (var i=0; i<$scope.consults.length; i++) {sum += $scope.consults[i].consultationPrice * (1 - $scope.consults[i].rebate) + $scope.consults[i].materialPrice + $scope.consults[i].medicamentPrice;}
+      return sum;
+    };
   }])
 
 
