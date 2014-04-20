@@ -3,9 +3,13 @@
 /* Controllers */
 
 angular.module('myApp.controllers', []).
-  controller('MyCtrl1', [function() {
-
+  controller('MyCtrl1', ['$scope', 'MonthsFactory', 
+                function($scope, MonthsFactory) {
+    MonthsFactory.getMonths({}, function(data) {
+      $scope.monthsResume = data;
+    });
   }])
+
   .controller('MyCtrl2', ['$scope', '$routeParams', 'ConsultRest', 'ConsultsFactory',
 		  function($scope, $routeParams, ConsultRest, ConsultsFactory) {
 

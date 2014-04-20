@@ -21,3 +21,11 @@ factuLineServices.factory('ConsultsFactory', ['$resource',
     });
   }
 ]);
+
+factuLineServices.factory('MonthsFactory', ['$resource',
+  function($resource) {
+    return $resource('http://localhost:8080/factuLineRest/months/', {}, {
+      getMonths: {method:'GET', params:{}, isArray:true}
+    });
+  }
+]);

@@ -29,4 +29,5 @@ function Consult() {
   this.medicamentPrice = null;
   this.rebate = 0;
   this.comment = "";
-};      
+}; 
+
