@@ -6,8 +6,8 @@ angular.module('myApp.controllers', []).
   controller('MyCtrl1', [function() {
 
   }])
-  .controller('MyCtrl2', ['$scope', '$routeParams', 'FactuLineRest', 'ConsultsFactory',
-		  function($scope, $routeParams, FactuLineRest, ConsultsFactory) {
+  .controller('MyCtrl2', ['$scope', '$routeParams', 'ConsultRest', 'ConsultsFactory',
+		  function($scope, $routeParams, ConsultRest, ConsultsFactory) {
 
     $scope.dateConsult = moment($routeParams.dayId, "DD.MM.YYYY").toDate();
 
@@ -60,7 +60,7 @@ angular.module('myApp.controllers', []).
 	}
       }
       if ($scope.insertMode) {
-        FactuLineRest.save({}, $scope.newInput, 
+        ConsultRest.save({}, $scope.newInput, 
           function(data) {
             $scope.consults.push(data);
             $scope.sortConsults();
@@ -69,7 +69,7 @@ angular.module('myApp.controllers', []).
           }
         );
       } else {
-        FactuLineRest.update($scope.newInput,
+        ConsultRest.update($scope.newInput,
           function(data) {
             for (var i = $scope.consults.length - 1; i >= 0; i--) {
               if ($scope.consults[i].id === $scope.newInput.id) {
@@ -86,7 +86,7 @@ angular.module('myApp.controllers', []).
     };
 
     $scope.delete = function(id) {
-      FactuLineRest.delete({'id':id}, 
+      ConsultRest.delete({'id':id}, 
         function() {
           for (var i = $scope.consults.length - 1; i >= 0; i--) {
             if ($scope.consults[i].id === id) {

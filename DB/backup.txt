@@ -2,4 +2,9 @@
 
 mongodump --collection consult --db factuLine
 
+ou alors :
+mongoexport --db factuLine --collection consult --out backup.json
+
+et ensuite :
+zip backup.2014.04.20.zip backup.json
 

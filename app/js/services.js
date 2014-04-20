@@ -4,7 +4,7 @@
 
 var factuLineServices = angular.module('myApp.services', ['ngResource']);
 
-factuLineServices.factory('FactuLineRest', ['$resource',
+factuLineServices.factory('ConsultRest', ['$resource',
   function($resource){
     return $resource('http://localhost:8080/factuLineRest/consult/:id', {}, {
       query: {method:'GET', params:{id:''}, isArray:true},
