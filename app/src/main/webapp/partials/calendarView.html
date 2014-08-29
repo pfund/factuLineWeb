@@ -1,0 +1,33 @@
+
+<div ng-controller="DatepickerCtrl">
+  <p><a href="#/day/{{dt | date:'dd.MM.yyyy' }}">Entrer les consultations pour aujourd'hui : {{dt | date:'d.M.yyyy' }}</a></p>
+
+    <div style="display:inline-block; min-height:220px;">
+      <div class="well well-sm" ng-model="dt" ng-change="dateChanged()">
+         <datepicker show-weeks="false" starting-day="1"></datepicker>
+      </div>
+    </div>
+
+</div>
+
+<table class="table striped-table">
+  <tr>
+    <th>Mois</th>
+    <th>Année</th>
+    <th>Total consultation</th>
+    <th>Total materiel</th>
+    <th>Total medicaments</th>
+    <th>Prix total</th>
+    <th>Moitié prix consultation</th>
+  <tr>
+  <tr ng-repeat="monthResume in monthsResume">
+    <td>{{monthResume.month}}</td>
+    <td>{{monthResume.year}}</td>
+    <td>{{monthResume.consultationPrice}}</td>
+    <td>{{monthResume.materialPrice}}</td>
+    <td>{{monthResume.medicamentPrice}}</td>
+    <td>{{monthResume.consultationPrice + monthResume.materialPrice + monthResume.medicamentPrice}}</td>
+    <td>{{monthResume.consultationPrice / 2}}</td>
+  </tr>
+</table>
+
