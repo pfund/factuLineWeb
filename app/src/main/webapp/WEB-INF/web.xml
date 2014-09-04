@@ -5,11 +5,6 @@
 <web-app>
 	<display-name>factuLineWeb war</display-name>
 
-	<servlet-mapping>
-		<servlet-name>javax.ws.rs.core.Application</servlet-name>
-		<url-pattern>/*</url-pattern>
-	</servlet-mapping>
-
 	<security-constraint>
 		<web-resource-collection>
 			<web-resource-name>secure</web-resource-name>
