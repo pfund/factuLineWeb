@@ -15,19 +15,19 @@
     <th>Mois</th>
     <th>Année</th>
     <th>Total consultation</th>
+    <th>Moitié prix consultation</th>
     <th>Total materiel</th>
     <th>Total medicaments</th>
     <th>Prix total</th>
-    <th>Moitié prix consultation</th>
   <tr>
   <tr ng-repeat="monthResume in monthsResume">
     <td>{{monthResume.month}}</td>
     <td>{{monthResume.year}}</td>
     <td>{{monthResume.consultationPrice}}</td>
+    <td>{{monthResume.consultationPrice / 2}}</td>
     <td>{{monthResume.materialPrice}}</td>
     <td>{{monthResume.medicamentPrice}}</td>
     <td>{{monthResume.consultationPrice + monthResume.materialPrice + monthResume.medicamentPrice}}</td>
-    <td>{{monthResume.consultationPrice / 2}}</td>
   </tr>
 </table>
 
