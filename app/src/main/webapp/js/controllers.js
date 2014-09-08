@@ -112,11 +112,35 @@ angular.module('myApp.controllers', []).
     };
 
     $scope.getDayConsultationPrice = function() {
+        if (!$scope.consults) return 0;
+
+        var sum = 0;
+        for (var i=0; i<$scope.consults.length; i++) {sum += $scope.consults[i].consultationPrice;}
+        return sum;
+    };
+
+    $scope.getDayConsultationPriceWithRebate = function() {
       if (!$scope.consults) return 0;
 
       var sum = 0;
       for (var i=0; i<$scope.consults.length; i++) {sum += $scope.consults[i].consultationPrice * (1 - $scope.consults[i].rebate);}
       return sum;
+    };
+
+    $scope.getDayMaterialPrice = function() {
+        if (!$scope.consults) return 0;
+
+        var sum = 0;
+        for (var i=0; i<$scope.consults.length; i++) {sum += $scope.consults[i].materialPrice;}
+        return sum;
+    };
+    
+    $scope.getDayMedicamentPrice = function() {
+        if (!$scope.consults) return 0;
+
+        var sum = 0;
+        for (var i=0; i<$scope.consults.length; i++) {sum += $scope.consults[i].medicamentPrice;}
+        return sum;
     };
 
     $scope.getTotalDayPrice = function() {
