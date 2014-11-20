@@ -1,0 +1,40 @@
+<div class="container-fluid">
+  <div class="row-fluid">
+  <accordion close-others="false">
+  <accordion-group heading="Gestion des hopitaux" is-open="false">
+
+    <form class="form-horizontal" role="form">
+    <div class="form-group">
+      <label for="inputName" class="col-sm-3 control-label">Nom</label>
+      <div class="col-sm-9">
+        <input class="form-control" id="inputName" placeHolder="Nom" ng-model="newInput.name"></input>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="col-sm-offset-3 col-sm-9">
+	      <button type="submit" class="btn btn-default" ng-click="insert()"><i class="glyphicon glyphicon-{{insertMode && 'plus' || 'ok'}}"></i> {{insertMode && 'Ajouter' || 'Modifier'}}</button>
+      </div>
+    </div>
+    </form>
+
+    <p>Tous les hopitaux entrés</p>
+    <table class="table table-striped">
+      <tr class="info">
+        <th>Nom</th>
+        <th></th>
+      <tr>
+
+      <tr ng-repeat="operationHospital in allOperationHospital">
+        <td>{{operationHospital.name}}</td>
+        <td><i class="glyphicon glyphicon-pencil" ng-click="modify(operationHospital)"></i></td>
+      </tr>
+      
+    </table>
+
+  </accordion-group>
+  </accorion>
+
+  </div>
+</div>
+

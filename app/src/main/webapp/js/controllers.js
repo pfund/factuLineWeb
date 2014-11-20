@@ -11,7 +11,7 @@ angular.module('myApp.controllers', []).
   }])
 
   .controller('MyCtrl2', ['$scope', '$routeParams', 'ConsultRest', 'ConsultsFactory',
-		  function($scope, $routeParams, ConsultRest, ConsultsFactory) {
+          function($scope, $routeParams, ConsultRest, ConsultsFactory) {
 
     $scope.dateConsult = moment($routeParams.dayId, "DD.MM.YYYY").toDate();
 
@@ -50,18 +50,18 @@ angular.module('myApp.controllers', []).
     $scope.insert = function() {
       var stringBirthDate = $scope.newInput.birthDate;
       if (stringBirthDate) {
-	// Start by checking the YYYY format first, otherwise moment will take 2030(YYYY) as a 20 (YY)
-	var momentBirthDate = moment(stringBirthDate, "DD.MM.YYYY");
+        // Start by checking the YYYY format first, otherwise moment will take 2030(YYYY) as a 20 (YY)
+        var momentBirthDate = moment(stringBirthDate, "DD.MM.YYYY");
         if (!momentBirthDate.isValid()) {
           momentBirthDate = moment(stringBirthDate, "DD.MM.YY");
         }
         if (!momentBirthDate.isValid()) {
           // TODO alert the user and abort sending
-	  alert("Birth date not valid");
-	  return;
-	} else {
+          alert("Birth date not valid");
+          return;
+        } else {
           $scope.newInput.birthDate = momentBirthDate.toDate();
-	}
+        }
       }
       if ($scope.insertMode) {
         ConsultRest.save({}, $scope.newInput, 
@@ -97,8 +97,8 @@ angular.module('myApp.controllers', []).
               $scope.consults.splice(i, 1);
             }
           }
-	  $scope.newInput.order = $scope.getNextOrder();
-	}
+          $scope.newInput.order = $scope.getNextOrder();
+        }
       );
     };
 
@@ -151,14 +151,169 @@ angular.module('myApp.controllers', []).
     };
   }])
 
+  .controller('OperationCalendarCtrl', ['$scope', 'OperationRest', 
+          function($scope, OperationRest) {
+
+    OperationRest.query({}, 
+      function(data) {
+        $scope.allOperations = data;
+      }
+    );
+
+  }])
+
+  .controller('OperationCtrl', ['$scope', '$routeParams', 'OperationRest', 'OperationsFactory', 'OperationHospitalRest',  
+          function($scope, $routeParams, OperationRest, OperationsFactory, OperationHospitalRest) {
+
+    $scope.dateOperation = moment($routeParams.dayId, "DD.MM.YYYY").toDate();
+    $scope.allOperationHospital = [];
+
+    OperationHospitalRest.query({}, 
+      function(data) {
+        $scope.allOperationHospital = data;
+      }
+    );
+
+    $scope.createNewInput = function() {
+      $scope.insertMode = true;
+
+      $scope.newInput = new Operation();
+      $scope.newInput.dateOperation = $scope.dateOperation;
+
+      var inputLastNameElement = document.getElementById("inputLastName");
+      if (inputLastNameElement) {
+        inputLastNameElement.focus();
+      }
+    };
+
+    OperationsFactory.getByDateOperation({'dateOperation':$scope.dateOperation}, 
+      function(data) {
+        $scope.operations = data;
+        $scope.createNewInput();
+      }
+    );
+    
+    $scope.insert = function() {
+      if ($scope.newInput.operationHospital && $scope.newInput.operationHospital.name) {
+        $scope.newInput.operationHospital = $scope.newInput.operationHospital.name;
+      }
+      if ($scope.insertMode) {
+        OperationRest.save({}, $scope.newInput, 
+          function(data) {
+            $scope.operations.push(data);
+
+            $scope.createNewInput();
+          }
+        );
+      } else {
+        OperationRest.update($scope.newInput,
+          function(data) {
+            for (var i = $scope.operations.length - 1; i >= 0; i--) {
+              if ($scope.operations[i].id === $scope.newInput.id) {
+                $scope.operations.splice(i, 1);
+              }
+            }
+            $scope.operations.push(data);
+
+            $scope.createNewInput();
+          }
+       );
+      }
+    };
+
+    $scope.delete = function(id) {
+      OperationRest.delete({'id':id}, 
+        function() {
+          for (var i = $scope.operations.length - 1; i >= 0; i--) {
+            if ($scope.operations[i].id === id) {
+              $scope.operations.splice(i, 1);
+            }
+          }
+        }
+      );
+    };
+
+    $scope.modify = function(operation) {
+      $scope.insertMode = false;
+      $scope.newInput = JSON.parse(JSON.stringify(operation));
+      $scope.newInput.dateOperation = moment(operation.dateOperation).toDate();
+    };
+    
+    $scope.getNiceDate = function(date) {
+      return moment(date).format("DD.MM.YY");
+    }
+
+  }])
 
   .controller('DatepickerCtrl', ['$scope', 'dateFilter', function($scope, dateFilter) {
+    $scope.dt = new Date();
 
-      $scope.dt = new Date();
+    $scope.dateChanged = function() {
+      var formattedDate = dateFilter($scope.dt, 'dd.MM.yyyy');
+      window.location.href = '#/day/' + formattedDate;
+    };
+  }])
+  
+  .controller('DatepickerOperationCtrl', ['$scope', 'dateFilter', function($scope, dateFilter) {
+    $scope.dt = new Date();
 
-      $scope.dateChanged = function() {
-	var formattedDate = dateFilter($scope.dt, 'dd.MM.yyyy');
-	window.location.href = '#/day/' + formattedDate;
-      };
+    $scope.dateChanged = function() {
+      var formattedDate = dateFilter($scope.dt, 'dd.MM.yyyy');
+      window.location.href = '#/operations/day/' + formattedDate;
+   };
+  }])
+
+  .controller('AdminCtrl', ['$scope', 'OperationHospitalRest', 
+          function($scope, OperationHospitalRest) {
+
+    // TODO change this to newOperationHospitalInput
+    // TODO change the input, modify to add operationHospital
+
+    $scope.createNewInput = function() {
+      $scope.insertMode = true;
+      $scope.newInput = {};
+    }
+
+
+
+    OperationHospitalRest.query({}, 
+      function(data) {
+        $scope.allOperationHospital = data;
+        $scope.createNewInput();
+      }
+    );
+
+    $scope.insert = function() {
+      if ($scope.insertMode) {
+        OperationHospitalRest.save({}, $scope.newInput, 
+          function(data) {
+            $scope.allOperationHospital.push(data);
+            $scope.createNewInput();
+          }
+        );
+      } else {
+        OperationHospitalRest.update($scope.newInput,
+          function(data) {
+            for (var i = $scope.allOperationHospital.length - 1; i >= 0; i--) {
+              if ($scope.allOperationHospital[i].id === $scope.newInput.id) {
+                $scope.allOperationHospital.splice(i, 1);
+              }
+            }
+            $scope.allOperationHospital.push(data);
+            $scope.createNewInput();
+          }
+       );
+      }
+    };
+
+   $scope.modify = function(operationHospital) {
+     $scope.insertMode = false;
+     $scope.newInput = JSON.parse(JSON.stringify(operationHospital));
+   };
+
+
   }]);
+
+
+
 

@@ -13,6 +13,9 @@ angular.module('myApp', [
 config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/calendar', {templateUrl: 'partials/calendarView.html', controller: 'MyCtrl1'});
   $routeProvider.when('/day/:dayId', {templateUrl: 'partials/dayView.html', controller: 'MyCtrl2'});
+  $routeProvider.when('/operations/calendar', {templateUrl: 'partials/operationsCalendarView.html', controller: 'OperationCalendarCtrl'});
+  $routeProvider.when('/operations/day/:dayId', {templateUrl: 'partials/operationsDayView.html', controller: 'OperationCtrl'});
+  $routeProvider.when('/administration', {templateUrl: 'partials/administrationView.html', controller: 'AdminCtrl'});
   $routeProvider.otherwise({redirectTo: '/calendar'});
 }]);
 
@@ -30,4 +33,10 @@ function Consult() {
   this.rebate = 0;
   this.comment = "";
 }; 
+
+function Operation() {
+	  this.id = null;
+	  this.firstName = "";
+	  this.lastName = "";
+	}; 
 

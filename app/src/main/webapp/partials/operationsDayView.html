@@ -1,0 +1,117 @@
+<div class="container-fluid">
+  <div class="row-fluid">
+  <accordion close-others="false">
+  <accordion-group heading="Insérer une nouvelle entrée pour le {{dateOperation | date:'dd.MM.yyyy'}}" is-open="true">
+
+    <form class="form-horizontal" role="form">
+    <div class="form-group">
+      <label for="inputLastName" class="col-sm-3 control-label">Nom</label>
+      <div class="col-sm-9">
+        <input class="form-control" id="inputLastName" placeHolder="Nom" ng-model="newInput.lastName"></input>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="inputFirstName" class="col-sm-3 control-label">Prénom</label>
+      <div class="col-sm-9">
+        <input class="form-control" id="inputFirstName" placeHolder="Prénom" ng-model="newInput.firstName"></input>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-3 control-label">Lieu</label>
+      <div class="col-sm-9">
+        <select ng-model="newInput.operationHospital" class="form-control"
+          ng-options="operationHospital.name for operationHospital in allOperationHospital">
+        </select>
+        <!--input class="form-control" id="inputOperationHospital" placeHolder="Lieu" ng-model="newInput.operationHospital"></input-->
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="inputAmount" class="col-sm-3 control-label">Prix intervention</label>
+      <div class="col-sm-9">
+        <input class="form-control" id="inputAmount" placeHolder="Prix intervention" ng-model="newInput.amount"></input>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="inputAssistantOne" class="col-sm-3 control-label">Premier Assistant</label>
+      <div class="col-sm-9">
+        <input class="form-control" id="inputAssistantOnex" placeHolder="Premier Assistant" ng-model="newInput.assistantOne"></input>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="inputAssistantOneAmount" class="col-sm-3 control-label">Prix premier assistant</label>
+      <div class="col-sm-9">
+        <input class="form-control" id="inputAssistantOneAmount" placeHolder="Prix premier assistant" ng-model="newInput.assistantOneAmount"></input>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="inputAssistantTwo" class="col-sm-3 control-label">Deuxième Assistant</label>
+      <div class="col-sm-9">
+        <input class="form-control" id="inputAssistantTwo" placeHolder="Deuxième Assistant" ng-model="newInput.assistantTwo"></input>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="inputAssistantTwoAmount" class="col-sm-3 control-label">Prix deuxième assistant</label>
+      <div class="col-sm-9">
+        <input class="form-control" id="inputAssistantTwoAmount" placeHolder="Prix deuxième assistant" ng-model="newInput.assistantTwoAmount"></input>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="inputPaymentRecieved" class="col-sm-3 control-label">Payement reçu</label>
+      <div class="col-sm-9">
+        <input type="checkbox" style="height: 34px; display: block; font-size: 16px;" id="inputPaymentRecieved" placeHolder="Payment reçu" ng-model="newInput.paymentRecieved"></input>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="inputAssistantsPaid" class="col-sm-3 control-label">Assistants payés</label>
+      <div class="col-sm-9">
+        <input type="checkbox" style="height: 34px; display: block; font-size: 16px;" id="inputAssistantsPaid" placeHolder="Assistants payés" ng-model="newInput.assistantsPaid"></input>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="col-sm-offset-3 col-sm-9">
+	      <button type="submit" class="btn btn-default" ng-click="insert()"><i class="glyphicon glyphicon-{{insertMode && 'plus' || 'ok'}}"></i> {{insertMode && 'Ajouter' || 'Modifier'}}</button>
+      </div>
+    </div>
+    </form>
+    </accordion-group>
+    </accorion>
+
+    <table class="table table-striped">
+      <tr class="info">
+      	<th>Date</th>
+        <th>Prénom</th>
+        <th>Nom</th>
+        <th>Lieu</th>
+        <th>Prix</th>
+        <th>Assistant 1</th>
+        <th>Prix ass. 1</th>
+        <th>Assistant 2</th>
+        <th>Prix ass. 2</th>
+        <th>Paymnt reçu</th>
+        <th>Ass. payés</th>
+        <th></th>
+        <th></th>
+      <tr>
+
+      <tr ng-repeat="operation in operations">
+        <td>{{getNiceDate(operation.dateOperation)}}</td>
+        <td>{{operation.firstName}}</td>
+        <td>{{operation.lastName}}</td>
+        <td>{{operation.operationHospital}}</td>
+        <td>{{operation.amount}}</td>
+        <td>{{operation.assistantOne}}</td>
+        <td>{{operation.assistantOneAmount}}</td>
+        <td>{{operation.assistantTwo}}</td>
+        <td>{{operation.assistantTwoAmount}}</td>
+        <td><span ng-show="operation.paymentRecieved"><i class="glyphicon glyphicon-ok"></i></span></td>
+        <td><span ng-show="operation.assistantsPaid"><i class="glyphicon glyphicon-ok"></i></span></td>
+        <td><i class="glyphicon glyphicon-trash" ng-click="delete(operation.id)" title="id: {{operation.id}}"></i></td>
+        <td><i class="glyphicon glyphicon-pencil" ng-click="modify(operation)"></i></td>
+      </tr>
+      
+    </table>
+
+  </div>
+</div>
+

@@ -1,0 +1,46 @@
+<p><a href="#/administration/">administration</a></p>
+
+<div ng-controller="DatepickerOperationCtrl">
+  <p><a href="#/operations/day/{{dt | date:'dd.MM.yyyy' }}">Entrer les opérations pour aujourd'hui : {{dt | date:'d.M.yyyy' }}</a></p>
+
+    <div style="display:inline-block; min-height:220px;">
+      <div class="well well-sm" ng-model="dt" ng-change="dateChanged()">
+         <datepicker show-weeks="false" starting-day="1"></datepicker>
+      </div>
+    </div>
+
+</div>
+
+<div>
+    <table class="table table-striped">
+      <tr class="info">
+      	<th>Date</th>
+        <th>Prénom</th>
+        <th>Nom</th>
+        <th>Lieu</th>
+        <th>Prix</th>
+        <th>Assistant 1</th>
+        <th>Prix ass. 1</th>
+        <th>Assistant 2</th>
+        <th>Prix ass. 2</th>
+        <th>Paymnt reçu</th>
+        <th>Ass. payés</th>
+      <tr>
+
+      <tr ng-repeat="operation in allOperations">
+        <td>{{operation.dateOperation | date:'dd.MM.yyyy'}}</td>
+        <td>{{operation.firstName}}</td>
+        <td>{{operation.lastName}}</td>
+        <td>{{operation.operationHospital}}</td>
+        <td>{{operation.amount}}</td>
+        <td>{{operation.assistantOne}}</td>
+        <td>{{operation.assistantOneAmount}}</td>
+        <td>{{operation.assistantTwo}}</td>
+        <td>{{operation.assistantTwoAmount}}</td>
+        <td><span ng-show="operation.paymentRecieved"><i class="glyphicon glyphicon-ok"></i></span></td>
+        <td><span ng-show="operation.assistantsPaid"><i class="glyphicon glyphicon-ok"></i></span></td>
+      </tr>
+      
+    </table>
+</div>
+
