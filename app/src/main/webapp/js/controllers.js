@@ -151,19 +151,29 @@ angular.module('myApp.controllers', []).
     };
   }])
 
-  .controller('OperationCalendarCtrl', ['$scope', 'OperationRest', 
-          function($scope, OperationRest) {
+  .controller('OperationCalendarCtrl', ['$scope', 'MonthOperationFactory', 
+          function($scope, MonthOperationFactory) {
 
-    OperationRest.query({}, 
+    MonthOperationFactory.getMonthOperations({},
       function(data) {
-        $scope.allOperations = data;
+        $scope.allMonthOperations = data;
       }
     );
 
+    $scope.changeLocation = function(url) {
+      window.location = url;
+    }
+
   }])
 
-  .controller('OperationCtrl', ['$scope', '$routeParams', 'OperationRest', 'OperationsFactory', 'OperationHospitalRest',  
-          function($scope, $routeParams, OperationRest, OperationsFactory, OperationHospitalRest) {
+  .controller('OperationCtrl', ['$scope', '$routeParams', '$location', 'OperationRest', 'OperationsFactory', 'OperationHospitalRest',  
+          function($scope, $routeParams, $location, OperationRest, OperationsFactory, OperationHospitalRest) {
+
+    // Check if we have to open the insert panel or not (by default yes)
+    $scope.openInsertPanel = true;
+    if (typeof $location.search().openInsertPanel !== 'undefined') {
+        $scope.openInsertPanel = $location.search().openInsertPanel;
+    }
 
     $scope.dateOperation = moment($routeParams.dayId, "DD.MM.YYYY").toDate();
     $scope.allOperationHospital = [];
@@ -186,7 +196,7 @@ angular.module('myApp.controllers', []).
       }
     };
 
-    OperationsFactory.getByDateOperation({'dateOperation':$scope.dateOperation}, 
+    OperationsFactory.getOperationsInMonth({'dateOperation':$scope.dateOperation}, 
       function(data) {
         $scope.operations = data;
         $scope.createNewInput();

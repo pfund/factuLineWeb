@@ -1,9 +1,15 @@
 <div class="container-fluid">
   <div class="row-fluid">
   <accordion close-others="false">
-  <accordion-group heading="Insérer une nouvelle entrée pour le {{dateOperation | date:'dd.MM.yyyy'}}" is-open="true">
+  <accordion-group heading="Insérer une nouvelle opération" is-open="{{openInsertPanel}}">
 
     <form class="form-horizontal" role="form">
+    <div class="form-group">
+      <label for="inputDate" class="col-sm-3 control-label">Date</label>
+      <div class="col-sm-9">
+        <input class="form-control" id="inputDate" placeHolder="Date" ng-model="newInput.dateOperation" type="date"></input>
+      </div>
+    </div>
     <div class="form-group">
       <label for="inputLastName" class="col-sm-3 control-label">Nom</label>
       <div class="col-sm-9">
@@ -77,6 +83,7 @@
     </accordion-group>
     </accorion>
 
+    <p>Opérations pour le mois : {{dateOperation | date:'MM.yyyy'}}</p>
     <table class="table table-striped">
       <tr class="info">
       	<th>Date</th>

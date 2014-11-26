@@ -45,8 +45,16 @@ factuLineServices.factory('OperationRest', ['$resource',
 
 factuLineServices.factory('OperationsFactory', ['$resource', 
   function($resource) {
-    return $resource('/factuLineRest/operation/getByDateOperation/:dateOperation', {} , {
-      getByDateOperation: {method:'GET', params:{dateOperation: '@dateOperation'}, isArray:true}
+    return $resource('/factuLineRest/operation/getOperationsInMonth/:dateOperation', {} , {
+      getOperationsInMonth: {method:'GET', params:{dateOperation: '@dateOperation'}, isArray:true}
+    });
+  }
+]);
+
+factuLineServices.factory('MonthOperationFactory', ['$resource',
+  function($resource) {
+    return $resource('/factuLineRest/monthOperations', {}, {
+      getMonthOperations: {method: 'GET', isArray: true}
     });
   }
 ]);

@@ -1,4 +1,4 @@
-<p><a href="#/administration/">administration</a></p>
+<p><a href="#/administration/" style="float: right; padding-right: 20px;">administration</a></p>
 
 <div ng-controller="DatepickerOperationCtrl">
   <p><a href="#/operations/day/{{dt | date:'dd.MM.yyyy' }}">Entrer les opérations pour aujourd'hui : {{dt | date:'d.M.yyyy' }}</a></p>
@@ -12,34 +12,30 @@
 </div>
 
 <div>
-    <table class="table table-striped">
-      <tr class="info">
-      	<th>Date</th>
-        <th>Prénom</th>
-        <th>Nom</th>
-        <th>Lieu</th>
-        <th>Prix</th>
-        <th>Assistant 1</th>
-        <th>Prix ass. 1</th>
-        <th>Assistant 2</th>
-        <th>Prix ass. 2</th>
-        <th>Paymnt reçu</th>
-        <th>Ass. payés</th>
-      <tr>
+    <table class="table table-striped table-hover">
+      <thead>
+	      <tr class="info">
+		    <th>Mois</th>
+		    <th>Année</th>
+		    <th>Montant</th>
+	      	<th>Montant assist. 1</th>
+	        <th>Montant assist. 2</th>
+	        <th>Interv. payés</th>
+	        <th>Ass. payés</th>
+	      <tr>
+	  </thead>
 
-      <tr ng-repeat="operation in allOperations">
-        <td>{{operation.dateOperation | date:'dd.MM.yyyy'}}</td>
-        <td>{{operation.firstName}}</td>
-        <td>{{operation.lastName}}</td>
-        <td>{{operation.operationHospital}}</td>
-        <td>{{operation.amount}}</td>
-        <td>{{operation.assistantOne}}</td>
-        <td>{{operation.assistantOneAmount}}</td>
-        <td>{{operation.assistantTwo}}</td>
-        <td>{{operation.assistantTwoAmount}}</td>
-        <td><span ng-show="operation.paymentRecieved"><i class="glyphicon glyphicon-ok"></i></span></td>
-        <td><span ng-show="operation.assistantsPaid"><i class="glyphicon glyphicon-ok"></i></span></td>
-      </tr>
+	  <tbody>
+	      <tr ng-repeat="monthOperation in allMonthOperations" ng-click="changeLocation('#/operations/day/01.' + monthOperation.month + '.' + monthOperation.year + '?openInsertPanel=false') ">
+	        <td>{{monthOperation.month}}</td>
+	        <td>{{monthOperation.year}}</td>
+	        <td>{{monthOperation.amount}}</td>
+	        <td>{{monthOperation.assistantOneAmount}}</td>
+	        <td>{{monthOperation.assistantTwoAmount}}</td>
+	        <td>{{monthOperation.numberPaymentsRecieved}} / {{monthOperation.numberOperations}}</td>
+	        <td>{{monthOperation.numberAssistantPaid}} / {{monthOperation.numberAssistedOperations}}</td>
+	      </tr>
+	  </tbody>
       
     </table>
 </div>
