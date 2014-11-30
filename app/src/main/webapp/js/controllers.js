@@ -273,6 +273,15 @@ angular.module('myApp.controllers', []).
    };
   }])
 
+  .controller('DatepickerAssistanceCtrl', ['$scope', 'dateFilter', function($scope, dateFilter) {
+    $scope.dt = new Date();
+
+    $scope.dateChanged = function() {
+      var formattedDate = dateFilter($scope.dt, 'dd.MM.yyyy');
+      window.location.href = '#/assistances/day/' + formattedDate;
+   };
+  }])
+
   .controller('AdminCtrl', ['$scope', 'OperationHospitalRest', 
           function($scope, OperationHospitalRest) {
 
@@ -321,6 +330,100 @@ angular.module('myApp.controllers', []).
      $scope.newInput = JSON.parse(JSON.stringify(operationHospital));
    };
 
+
+  }])
+
+  .controller('AssistanceCalendarCtrl', ['$scope', 'MonthAssistanceFactory', 
+          function($scope, MonthAssistanceFactory) {
+
+    MonthAssistanceFactory.getMonthAssistances({},
+      function(data) {
+        $scope.allMonthAssistances = data;
+      }
+    );
+
+    $scope.changeLocation = function(url) {
+      window.location = url;
+    }
+
+  }])
+
+  .controller('AssistanceCtrl', ['$scope', '$routeParams', '$location', 'AssistanceRest', 'AssistancesFactory',  
+          function($scope, $routeParams, $location, AssistanceRest, AssistancesFactory) {
+
+    // Check if we have to open the insert panel or not (by default yes)
+    $scope.openInsertPanel = true;
+    if (typeof $location.search().openInsertPanel !== 'undefined') {
+        $scope.openInsertPanel = $location.search().openInsertPanel;
+    }
+
+    $scope.dateAssistance = moment($routeParams.dayId, "DD.MM.YYYY").toDate();
+
+    $scope.createNewInput = function() {
+      $scope.insertMode = true;
+
+      $scope.newInput = new Assistance();
+      $scope.newInput.dateAssistance = $scope.dateAssistance;
+
+      var inputLastNameElement = document.getElementById("inputLastName");
+      if (inputLastNameElement) {
+        inputLastNameElement.focus();
+      }
+    };
+
+    AssistancesFactory.getAssistancesInMonth({'dateAssistance':$scope.dateAssistance}, 
+      function(data) {
+        $scope.assistances = data;
+        $scope.createNewInput();
+      }
+    );
+    
+    $scope.insert = function() {
+      if ($scope.insertMode) {
+        AssistanceRest.save({}, $scope.newInput, 
+          function(data) {
+            $scope.assistances.push(data);
+
+            $scope.createNewInput();
+          }
+        );
+      } else {
+        AssistanceRest.update($scope.newInput,
+          function(data) {
+            for (var i = $scope.assistances.length - 1; i >= 0; i--) {
+              if ($scope.assistances[i].id === $scope.newInput.id) {
+                $scope.assistances.splice(i, 1);
+              }
+            }
+            $scope.assistances.push(data);
+
+            $scope.createNewInput();
+          }
+       );
+      }
+    };
+
+    $scope.delete = function(id) {
+      AssistanceRest.delete({'id':id}, 
+        function() {
+          for (var i = $scope.assistances.length - 1; i >= 0; i--) {
+            if ($scope.assistances[i].id === id) {
+              $scope.assistances.splice(i, 1);
+            }
+          }
+        }
+      );
+    };
+
+    $scope.modify = function(assistance) {
+      $scope.insertMode = false;
+      $scope.newInput = JSON.parse(JSON.stringify(assistance));
+      $scope.newInput.dateAssistance = moment(assistance.dateAssistance).toDate();
+    };
+    
+    $scope.getNiceDate = function(date) {
+      return moment(date).format("DD.MM.YY");
+    }
 
   }]);
 

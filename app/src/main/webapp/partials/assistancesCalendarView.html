@@ -1,0 +1,35 @@
+
+<div ng-controller="DatepickerAssistanceCtrl">
+  <p><a href="#/assistances/day/{{dt | date:'dd.MM.yyyy' }}">Entrer les assistances pour aujourd'hui : {{dt | date:'d.M.yyyy' }}</a></p>
+
+    <div style="display:inline-block; min-height:220px;">
+      <div class="well well-sm" ng-model="dt" ng-change="dateChanged()">
+         <datepicker show-weeks="false" starting-day="1"></datepicker>
+      </div>
+    </div>
+
+</div>
+
+<div>
+    <table class="table table-striped table-hover">
+      <thead>
+	      <tr class="info">
+		    <th>Mois</th>
+		    <th>Année</th>
+		    <th>Montant</th>
+	        <th>Assistances payés</th>
+	      <tr>
+	  </thead>
+
+	  <tbody>
+	      <tr ng-repeat="monthAssistance in allMonthAssistances" ng-click="changeLocation('#/assistances/day/01.' + monthAssistance.month + '.' + monthAssistance.year + '?openInsertPanel=false') ">
+	        <td>{{monthAssistance.month}}</td>
+	        <td>{{monthAssistance.year}}</td>
+	        <td>{{monthAssistance.amount}}</td>
+	        <td>{{monthAssistance.numberPaidAssistances}} / {{monthAssistance.numberAssistances}}</td>
+	      </tr>
+	  </tbody>
+      
+    </table>
+</div>
+

@@ -15,6 +15,8 @@ config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/day/:dayId', {templateUrl: 'partials/dayView.html', controller: 'MyCtrl2'});
   $routeProvider.when('/operations/calendar', {templateUrl: 'partials/operationsCalendarView.html', controller: 'OperationCalendarCtrl'});
   $routeProvider.when('/operations/day/:dayId', {templateUrl: 'partials/operationsDayView.html', controller: 'OperationCtrl'});
+  $routeProvider.when('/assistances/calendar', {templateUrl: 'partials/assistancesCalendarView.html', controller: 'AssistanceCalendarCtrl'});
+  $routeProvider.when('/assistances/day/:dayId', {templateUrl: 'partials/assistancesDayView.html', controller: 'AssistanceCtrl'});
   $routeProvider.when('/administration', {templateUrl: 'partials/administrationView.html', controller: 'AdminCtrl'});
   $routeProvider.otherwise({redirectTo: '/calendar'});
 }]);
@@ -39,4 +41,10 @@ function Operation() {
 	  this.firstName = "";
 	  this.lastName = "";
 	}; 
+
+function Assistance() {
+    this.id = null;
+    this.firstName = "";
+    this.lastName = "";
+}
 

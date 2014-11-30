@@ -1,0 +1,73 @@
+<div class="container-fluid">
+  <div class="row-fluid">
+  <accordion close-others="false">
+  <accordion-group heading="Insérer une nouvelle assistance" is-open="{{openInsertPanel}}">
+
+    <form class="form-horizontal" role="form">
+    <div class="form-group">
+      <label for="inputDate" class="col-sm-3 control-label">Date</label>
+      <div class="col-sm-9">
+        <input class="form-control" id="inputDate" placeHolder="Date" ng-model="newInput.dateAssistance" type="date"></input>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="inputOperator" class="col-sm-3 control-label">Opérateur</label>
+      <div class="col-sm-9">
+        <input class="form-control" id="inputOperator" placeHolder="Opérateur" ng-model="newInput.operator"></input>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="inputLastName" class="col-sm-3 control-label">Nom</label>
+      <div class="col-sm-9">
+        <input class="form-control" id="inputLastName" placeHolder="Nom" ng-model="newInput.lastName"></input>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="inputFirstName" class="col-sm-3 control-label">Prénom</label>
+      <div class="col-sm-9">
+        <input class="form-control" id="inputFirstName" placeHolder="Prénom" ng-model="newInput.firstName"></input>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="inputAmount" class="col-sm-3 control-label">Montant assistant</label>
+      <div class="col-sm-9">
+        <input class="form-control" id="inputAmount" placeHolder="Montant assistant" ng-model="newInput.amount"></input>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="col-sm-offset-3 col-sm-9">
+	      <button type="submit" class="btn btn-default" ng-click="insert()"><i class="glyphicon glyphicon-{{insertMode && 'plus' || 'ok'}}"></i> {{insertMode && 'Ajouter' || 'Modifier'}}</button>
+      </div>
+    </div>
+    </form>
+    </accordion-group>
+    </accorion>
+
+    <p>Assistances pour le mois : {{dateAssistance | date:'MM.yyyy'}}</p>
+    <table class="table table-striped">
+      <tr class="info">
+      	<th>Date</th>
+        <th>Opérateur</th>
+        <th>Prénom</th>
+        <th>Nom</th>
+        <th>Montant Aasistant</th>
+        <th></th>
+        <th></th>
+      <tr>
+
+      <tr ng-repeat="assistance in assistances">
+        <td>{{getNiceDate(assistance.dateAssistance)}}</td>
+        <td>{{assistance.operator}}</td>
+        <td>{{assistance.firstName}}</td>
+        <td>{{assistance.lastName}}</td>
+        <td>{{assistance.amount}}</td>
+        <td><i class="glyphicon glyphicon-trash" ng-click="delete(assistance.id)" title="id: {{assistance.id}}"></i></td>
+        <td><i class="glyphicon glyphicon-pencil" ng-click="modify(assistance)"></i></td>
+      </tr>
+      
+    </table>
+
+  </div>
+</div>
+
