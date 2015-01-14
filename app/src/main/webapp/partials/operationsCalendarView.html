@@ -26,7 +26,7 @@
 	  </thead>
 
 	  <tbody>
-	      <tr ng-repeat="monthOperation in allMonthOperations" ng-click="changeLocation('#/operations/day/01.' + monthOperation.month + '.' + monthOperation.year + '?openInsertPanel=false') ">
+	      <tr ng-repeat="monthOperation in allMonthOperations" ng-click="changeLocation('#/operations/day/01.' + monthOperation.month + '.' + monthOperation.year + '?openInsertPanel=true') ">
 	        <td>{{monthOperation.month}}</td>
 	        <td>{{monthOperation.year}}</td>
 	        <td>{{monthOperation.amount}}</td>

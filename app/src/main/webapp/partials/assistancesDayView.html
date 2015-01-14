@@ -1,7 +1,7 @@
 <div class="container-fluid">
   <div class="row-fluid">
   <accordion close-others="false">
-  <accordion-group heading="Insérer une nouvelle assistance" is-open="{{openInsertPanel}}">
+  <accordion-group heading="{{insertMode && 'Insérer une nouvelle assistance' || 'Modifier une assistance'}}" is-open="{{openInsertPanel}}">
 
     <form class="form-horizontal" role="form">
     <div class="form-group">
@@ -34,6 +34,12 @@
         <input class="form-control" id="inputAmount" placeHolder="Montant assistant" ng-model="newInput.amount"></input>
       </div>
     </div>
+    <div class="form-group">
+      <label for="inputPaidDate" class="col-sm-3 control-label">Date réception paiement</label>
+      <div class="col-sm-9">
+        <input class="form-control" id="inputPaidDate" placeHolder="Date réception paiement" ng-model="newInput.paidDate"></input>
+      </div>
+    </div>
 
     <div class="form-group">
       <div class="col-sm-offset-3 col-sm-9">
@@ -52,6 +58,7 @@
         <th>Prénom</th>
         <th>Nom</th>
         <th>Montant Aasistant</th>
+        <th>Date paiement</th>
         <th></th>
         <th></th>
       <tr>
@@ -62,6 +69,7 @@
         <td>{{assistance.firstName}}</td>
         <td>{{assistance.lastName}}</td>
         <td>{{assistance.amount}}</td>
+        <td>{{assistance.paidDate | date:'dd.MM.yyyy'}}</td>
         <td><i class="glyphicon glyphicon-trash" ng-click="delete(assistance.id)" title="id: {{assistance.id}}"></i></td>
         <td><i class="glyphicon glyphicon-pencil" ng-click="modify(assistance)"></i></td>
       </tr>

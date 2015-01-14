@@ -207,6 +207,37 @@ angular.module('myApp.controllers', []).
       if ($scope.newInput.operationHospital && $scope.newInput.operationHospital.name) {
         $scope.newInput.operationHospital = $scope.newInput.operationHospital.name;
       }
+      var stringPaymentRecievedDate = $scope.newInput.paymentRecievedDate;
+      if (stringPaymentRecievedDate) {
+        // Start by checking the YYYY format first, otherwise moment will take 2030(YYYY) as a 20 (YY)
+        var momentPaymentRecievedDate = moment(stringPaymentRecievedDate, "DD.MM.YYYY");
+        if (!momentPaymentRecievedDate.isValid()) {
+          momentPaymentRecievedDate = moment(stringPaymentRecievedDate, "DD.MM.YY");
+        }
+        if (!momentPaymentRecievedDate.isValid()) {
+          // TODO alert the user and abort sending
+          alert("PaymentRecievedDate not valid");
+          return;
+        } else {
+          $scope.newInput.paymentRecievedDate = momentPaymentRecievedDate.toDate();
+        }
+      }
+      var stringAssistantsPaidDate = $scope.newInput.assistantsPaidDate;
+      if (stringAssistantsPaidDate) {
+        // Start by checking the YYYY format first, otherwise moment will take 2030(YYYY) as a 20 (YY)
+        var momentAssistantsPaidDate = moment(stringAssistantsPaidDate, "DD.MM.YYYY");
+        if (!momentAssistantsPaidDate.isValid()) {
+          momentAssistantsPaidDate = moment(stringAssistantsPaidDate, "DD.MM.YY");
+        }
+        if (!momentAssistantsPaidDate.isValid()) {
+          // TODO alert the user and abort sending
+          alert("AssistantsPaidDate not valid");
+          return;
+        } else {
+          $scope.newInput.assistantsPaidDate = momentAssistantsPaidDate.toDate();
+        }
+      }
+
       if ($scope.insertMode) {
         OperationRest.save({}, $scope.newInput, 
           function(data) {
@@ -245,8 +276,11 @@ angular.module('myApp.controllers', []).
 
     $scope.modify = function(operation) {
       $scope.insertMode = false;
+      $scope.openInsertPanel = true;  // TODO does not work
       $scope.newInput = JSON.parse(JSON.stringify(operation));
       $scope.newInput.dateOperation = moment(operation.dateOperation).toDate();
+      if (operation.paymentRecievedDate) $scope.newInput.paymentRecievedDate = moment(operation.paymentRecievedDate).format("DD.MM.YYYY");
+      if (operation.assistantsPaidDate) $scope.newInput.assistantsPaidDate = moment(operation.assistantsPaidDate).format("DD.MM.YYYY");
     };
     
     $scope.getNiceDate = function(date) {
@@ -379,6 +413,22 @@ angular.module('myApp.controllers', []).
     );
     
     $scope.insert = function() {
+      var stringPaidDate = $scope.newInput.paidDate;
+      if (stringPaidDate) {
+        // Start by checking the YYYY format first, otherwise moment will take 2030(YYYY) as a 20 (YY)
+        var momentPaidDate = moment(stringPaidDate, "DD.MM.YYYY");
+        if (!momentPaidDate.isValid()) {
+          momentPaidDate = moment(stringPaidDate, "DD.MM.YY");
+        }
+        if (!momentPaidDate.isValid()) {
+          // TODO alert the user and abort sending
+          alert("AssistantsPaidDate not valid");
+          return;
+        } else {
+          $scope.newInput.paidDate = momentPaidDate.toDate();
+        }
+      }
+
       if ($scope.insertMode) {
         AssistanceRest.save({}, $scope.newInput, 
           function(data) {
@@ -417,8 +467,10 @@ angular.module('myApp.controllers', []).
 
     $scope.modify = function(assistance) {
       $scope.insertMode = false;
+      $scope.openInsertPanel = true;  // TODO does not work
       $scope.newInput = JSON.parse(JSON.stringify(assistance));
       $scope.newInput.dateAssistance = moment(assistance.dateAssistance).toDate();
+      if (assistance.paidDate) $scope.newInput.paidDate = moment(assistance.paidDate).format("DD.MM.YYYY");
     };
     
     $scope.getNiceDate = function(date) {
