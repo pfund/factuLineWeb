@@ -26,7 +26,7 @@
       <label class="col-sm-3 control-label">Lieu</label>
       <div class="col-sm-9">
         <select ng-model="newInput.operationHospital" class="form-control"
-          ng-options="operationHospital.name for operationHospital in allOperationHospital">
+          ng-options="operationHospital.name as operationHospital.name for operationHospital in allOperationHospital">
         </select>
       </div>
     </div>
