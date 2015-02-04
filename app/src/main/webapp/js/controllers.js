@@ -175,7 +175,7 @@ angular.module('myApp.controllers', []).
         $scope.openInsertPanel = $location.search().openInsertPanel;
     }
 
-    $scope.dateOperation = moment($routeParams.dayId, "DD.MM.YYYY").toDate();
+    $scope.dateOperation = $routeParams.dayId;
     $scope.allOperationHospital = [];
 
     OperationHospitalRest.query({}, 
@@ -196,7 +196,7 @@ angular.module('myApp.controllers', []).
       }
     };
 
-    OperationsFactory.getOperationsInMonth({'dateOperation':$scope.dateOperation}, 
+    OperationsFactory.getOperationsInMonth({'dateOperation':moment($scope.dateOperation, "DD.MM.YYYY").toDate()}, 
       function(data) {
         $scope.operations = data;
         $scope.createNewInput();
@@ -206,6 +206,21 @@ angular.module('myApp.controllers', []).
     $scope.insert = function() {
       if ($scope.newInput.operationHospital && $scope.newInput.operationHospital.name) {
         $scope.newInput.operationHospital = $scope.newInput.operationHospital.name;
+      }
+      var stringDateOperation = $scope.newInput.dateOperation;
+      if (stringDateOperation) {
+        // Start by checking the YYYY format first, otherwise moment will take 2030(YYYY) as a 20 (YY)
+        var momentDateOperation = moment(stringDateOperation, "DD.MM.YYYY");
+        if (!momentDateOperation.isValid()) {
+          momentDateOperation = moment(stringDateOperation, "DD.MM.YY");
+        }
+        if (!momentDateOperation.isValid()) {
+          // TODO alert the user and abort sending
+          alert("dateOperation not valid");
+          return;
+        } else {
+          $scope.newInput.dateOperation = momentDateOperation.toDate();
+        }
       }
       var stringPaymentRecievedDate = $scope.newInput.paymentRecievedDate;
       if (stringPaymentRecievedDate) {
@@ -278,7 +293,7 @@ angular.module('myApp.controllers', []).
       $scope.insertMode = false;
       $scope.openInsertPanel = true;  // TODO does not work
       $scope.newInput = JSON.parse(JSON.stringify(operation));
-      $scope.newInput.dateOperation = moment(operation.dateOperation).toDate();
+      $scope.newInput.dateOperation = moment(operation.dateOperation).format("DD.MM.YYYY");
       if (operation.paymentRecievedDate) $scope.newInput.paymentRecievedDate = moment(operation.paymentRecievedDate).format("DD.MM.YYYY");
       if (operation.assistantsPaidDate) $scope.newInput.assistantsPaidDate = moment(operation.assistantsPaidDate).format("DD.MM.YYYY");
     };
@@ -391,7 +406,7 @@ angular.module('myApp.controllers', []).
         $scope.openInsertPanel = $location.search().openInsertPanel;
     }
 
-    $scope.dateAssistance = moment($routeParams.dayId, "DD.MM.YYYY").toDate();
+    $scope.dateAssistance = $routeParams.dayId;
 
     $scope.createNewInput = function() {
       $scope.insertMode = true;
@@ -405,7 +420,7 @@ angular.module('myApp.controllers', []).
       }
     };
 
-    AssistancesFactory.getAssistancesInMonth({'dateAssistance':$scope.dateAssistance}, 
+    AssistancesFactory.getAssistancesInMonth({'dateAssistance':moment($scope.dateAssistance, "DD.MM.YYYY").toDate()}, 
       function(data) {
         $scope.assistances = data;
         $scope.createNewInput();
@@ -413,6 +428,21 @@ angular.module('myApp.controllers', []).
     );
     
     $scope.insert = function() {
+      var stringDateAssistance = $scope.newInput.dateAssistance;
+      if (stringDateAssistance) {
+        // Start by checking the YYYY format first, otherwise moment will take 2030(YYYY) as a 20 (YY)
+        var momentDateAssistance = moment(stringDateAssistance, "DD.MM.YYYY");
+        if (!momentDateAssistance.isValid()) {
+          momentDateAssistance = moment(stringDateAssistance, "DD.MM.YY");
+        }
+        if (!momentDateAssistance.isValid()) {
+          // TODO alert the user and abort sending
+          alert("dateAssistance not valid");
+          return;
+        } else {
+          $scope.newInput.dateAssistance = momentDateAssistance.toDate();
+        }
+      }
       var stringPaidDate = $scope.newInput.paidDate;
       if (stringPaidDate) {
         // Start by checking the YYYY format first, otherwise moment will take 2030(YYYY) as a 20 (YY)
@@ -469,7 +499,7 @@ angular.module('myApp.controllers', []).
       $scope.insertMode = false;
       $scope.openInsertPanel = true;  // TODO does not work
       $scope.newInput = JSON.parse(JSON.stringify(assistance));
-      $scope.newInput.dateAssistance = moment(assistance.dateAssistance).toDate();
+      $scope.newInput.dateAssistance = moment(assistance.dateAssistance).format("DD.MM.YYYY");
       if (assistance.paidDate) $scope.newInput.paidDate = moment(assistance.paidDate).format("DD.MM.YYYY");
     };
     
