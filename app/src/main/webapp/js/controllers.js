@@ -414,9 +414,9 @@ angular.module('myApp.controllers', []).
       $scope.newInput = new Assistance();
       $scope.newInput.dateAssistance = $scope.dateAssistance;
 
-      var inputLastNameElement = document.getElementById("inputLastName");
-      if (inputLastNameElement) {
-        inputLastNameElement.focus();
+      var inputOperatorElement = document.getElementById("inputOperator");
+      if (inputOperatorElement) {
+        inputOperatorElement.focus();
       }
     };
 

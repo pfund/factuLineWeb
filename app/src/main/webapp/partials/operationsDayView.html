@@ -23,6 +23,12 @@
       </div>
     </div>
     <div class="form-group">
+      <label for="inputOperationType" class="col-sm-3 control-label">Type d'opération</label>
+      <div class="col-sm-9">
+        <input class="form-control" id="inputOperationType" placeHolder="Type d'opération" ng-model="newInput.operationType"></input>
+      </div>
+    </div>
+    <div class="form-group">
       <label class="col-sm-3 control-label">Lieu</label>
       <div class="col-sm-9">
         <select ng-model="newInput.operationHospital" class="form-control"
@@ -70,6 +76,12 @@
       <label for="inputAssistantsPaid" class="col-sm-3 control-label">Date paiement assistants</label>
       <div class="col-sm-9">
         <input class="form-control" id="inputAssistantsPaidDate" placeHolder="Date paiement assistants" ng-model="newInput.assistantsPaidDate"></input>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="inputComment" class="col-sm-3 control-label">Commentaire</label>
+      <div class="col-sm-9">
+        <textarea class="form-control" rows="3" id="inputComment" placeHolder="Commentaire" ng-model="newInput.comment"></textarea>
       </div>
     </div>
 
