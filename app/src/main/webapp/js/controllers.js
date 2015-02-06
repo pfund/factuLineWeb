@@ -397,8 +397,8 @@ angular.module('myApp.controllers', []).
 
   }])
 
-  .controller('AssistanceCtrl', ['$scope', '$routeParams', '$location', 'AssistanceRest', 'AssistancesFactory',  
-          function($scope, $routeParams, $location, AssistanceRest, AssistancesFactory) {
+  .controller('AssistanceCtrl', ['$scope', '$routeParams', '$location', 'AssistanceRest', 'AssistancesFactory', 'OperationHospitalRest', 
+          function($scope, $routeParams, $location, AssistanceRest, AssistancesFactory, OperationHospitalRest) {
 
     // Check if we have to open the insert panel or not (by default yes)
     $scope.openInsertPanel = true;
@@ -407,6 +407,13 @@ angular.module('myApp.controllers', []).
     }
 
     $scope.dateAssistance = $routeParams.dayId;
+    $scope.allOperationHospital = [];
+
+    OperationHospitalRest.query({}, 
+      function(data) {
+        $scope.allOperationHospital = data;
+      }
+    );
 
     $scope.createNewInput = function() {
       $scope.insertMode = true;
