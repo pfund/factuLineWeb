@@ -4,9 +4,9 @@
 
 var factuLineServices = angular.module('myApp.assistanceServices', ['ngResource']);
 
-factuLineServices.factory('AssistanceRest', ['$resource',
-  function($resource){
-    return $resource('/factuLineRest/assistance/:id', {}, {
+factuLineServices.factory('AssistanceRest', ['$resource', 'restHost',
+  function($resource, restHost){
+    return $resource(restHost + '/factuLineRest/assistance/:id', {}, {
       query: {method:'GET', isArray:true},
       post: {method:'POST'},
       update: {method:'PUT'},
@@ -15,17 +15,17 @@ factuLineServices.factory('AssistanceRest', ['$resource',
   }
 ]);
 
-factuLineServices.factory('AssistancesFactory', ['$resource', 
-  function($resource) {
-    return $resource('/factuLineRest/assistance/getAssistancesInMonth/:dateAssistance', {} , {
+factuLineServices.factory('AssistancesFactory', ['$resource', 'restHost',
+  function($resource, restHost) {
+    return $resource(restHost + '/factuLineRest/assistance/getAssistancesInMonth/:dateAssistance', {} , {
       getAssistancesInMonth: {method:'GET', params:{dateAssistance: '@dateAssistance'}, isArray:true}
     });
   }
 ]);
 
-factuLineServices.factory('MonthAssistanceFactory', ['$resource',
-  function($resource) {
-    return $resource('/factuLineRest/monthAssistances', {}, {
+factuLineServices.factory('MonthAssistanceFactory', ['$resource', 'restHost',
+  function($resource, restHost) {
+    return $resource(restHost + '/factuLineRest/monthAssistances', {}, {
       getMonthAssistances: {method: 'GET', isArray: true}
     });
   }
