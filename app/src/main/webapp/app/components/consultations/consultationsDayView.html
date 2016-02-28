@@ -72,12 +72,12 @@
       <tr class="info">
         <th>Prénom</th>
         <th>Nom</th>
-        <th>Prix consultation</th>
+        <th class="amount">Prix consultation</th>
         <th>Rabais</th>
-        <th>Consult avec Rabais</th>
-        <th>Matériel</th>
-        <th>Médicaments</th>
-        <th>Prix total</th>
+        <th class="amount">Consult avec Rabais</th>
+        <th class="amount">Matériel</th>
+        <th class="amount">Médicaments</th>
+        <th class="amount">Prix total</th>
         <th></th>
         <th></th>
       <tr>
@@ -85,28 +85,28 @@
       <tr ng-repeat="consult in consults">
         <td>{{consult.firstName}}</td>
         <td>{{consult.lastName}}</td>
-        <td>{{consult.consultationPrice}}</td>
+        <td class="amount">{{consult.consultationPrice | toFixed : 2}}</td>
         <td>{{consult.rebate}}</td>
-        <td>{{consult.consultationPrice * (1 - consult.rebate)}}</td>
-        <td>{{consult.materialPrice}}</td>
-        <td>{{consult.medicamentPrice}}</td>
-        <td>{{consult.consultationPrice * (1 - consult.rebate) + consult.materialPrice + consult.medicamentPrice}}</td>
+        <td class="amount">{{consult.consultationPrice * (1 - consult.rebate) | toFixed : 2}}</td>
+        <td class="amount">{{consult.materialPrice | toFixed : 2}}</td>
+        <td class="amount">{{consult.medicamentPrice | toFixed : 2}}</td>
+        <td class="amount">{{consult.consultationPrice * (1 - consult.rebate) + consult.materialPrice + consult.medicamentPrice | toFixed : 2}}</td>
         <td><i class="glyphicon glyphicon-trash" ng-click="delete(consult.id)" title="id: {{consult.id}}"></i></td>
         <td><i class="glyphicon glyphicon-pencil" ng-click="modify(consult)"></i></td>
       </tr>
       
       <tr class="success">
       	<th colspan="2"><strong>Total</strong></th>
-      	<th>{{getDayConsultationPrice()}}</th>
+      	<th class="amount">{{getDayConsultationPrice() | toFixed : 2}}</th>
       	<th />
-      	<th>{{getDayConsultationPriceWithRebate()}}</th>
-      	<th>{{getDayMaterialPrice()}}</th>
-      	<th>{{getDayMedicamentPrice()}}</th>
-      	<th>{{getTotalDayPrice()}}</th>
+      	<th class="amount">{{getDayConsultationPriceWithRebate() | toFixed : 2}}</th>
+      	<th class="amount">{{getDayMaterialPrice() | toFixed : 2}}</th>
+      	<th class="amount">{{getDayMedicamentPrice() | toFixed : 2}}</th>
+      	<th class="amount">{{getTotalDayPrice() | toFixed : 2}}</th>
       	<th colspan="2" />
     </table>
 
-    <p>Moitié prix consultation du jour (avec rabais) : {{getDayConsultationPriceWithRebate() / 2}}</p>
+    <p>Moitié prix consultation du jour (avec rabais) : {{getDayConsultationPriceWithRebate() / 2 | toFixed : 2}}</p>
   </div>
 </div>
 

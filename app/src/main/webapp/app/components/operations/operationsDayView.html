@@ -101,11 +101,11 @@
         <th>Prénom</th>
         <th>Nom</th>
         <th>Lieu</th>
-        <th>Prix</th>
+        <th class="amount">Prix</th>
         <th>Assistant 1</th>
-        <th>Prix ass. 1</th>
+        <th class="amount">Prix ass. 1</th>
         <th>Assistant 2</th>
-        <th>Prix ass. 2</th>
+        <th class="amount">Prix ass. 2</th>
         <th>Paymnt reçu</th>
         <th>Ass. payés</th>
         <th></th>
@@ -117,11 +117,11 @@
         <td>{{operation.firstName}}</td>
         <td>{{operation.lastName}}</td>
         <td>{{operation.operationHospital}}</td>
-        <td>{{operation.amount}}</td>
+        <td class="amount">{{operation.amount | toFixed : 2}}</td>
         <td>{{operation.assistantOne}}</td>
-        <td>{{operation.assistantOneAmount}}</td>
+        <td class="amount">{{operation.assistantOneAmount | toFixed : 2}}</td>
         <td>{{operation.assistantTwo}}</td>
-        <td>{{operation.assistantTwoAmount}}</td>
+        <td class="amount">{{operation.assistantTwoAmount | toFixed : 2}}</td>
         <td>{{operation.paymentRecievedDate | date:'dd.MM.yyyy'}}</td>
         <td>{{operation.assistantsPaidDate | date:'dd.MM.yyyy'}}</td>
         <td><i class="glyphicon glyphicon-trash" ng-click="delete(operation.id)" title="id: {{operation.id}}"></i></td>

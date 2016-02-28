@@ -17,9 +17,9 @@
 	      <tr class="info">
 		    <th>Mois</th>
 		    <th>Année</th>
-		    <th>Montant</th>
-	      	<th>Montant assist. 1</th>
-	        <th>Montant assist. 2</th>
+		    <th class="amount">Montant</th>
+	      	<th class="amount">Montant assist. 1</th>
+	        <th class="amount">Montant assist. 2</th>
 	        <th>Interv. payés</th>
 	        <th>Ass. payés</th>
 	      <tr>
@@ -29,9 +29,9 @@
 	      <tr ng-repeat="monthOperation in allMonthOperations" ng-click="changeLocation('#/operations/day/15.' + monthOperation.month + '.' + monthOperation.year + '?openInsertPanel=true') ">
 	        <td>{{monthOperation.month}}</td>
 	        <td>{{monthOperation.year}}</td>
-	        <td>{{monthOperation.amount | toFixed : 2}}</td>
-	        <td>{{monthOperation.assistantOneAmount | toFixed : 2}}</td>
-	        <td>{{monthOperation.assistantTwoAmount | toFixed : 2}}</td>
+	        <td class="amount">{{monthOperation.amount | toFixed : 2}}</td>
+	        <td class="amount">{{monthOperation.assistantOneAmount | toFixed : 2}}</td>
+	        <td class="amount">{{monthOperation.assistantTwoAmount | toFixed : 2}}</td>
 	        <td>{{monthOperation.numberPaymentsRecieved}} / {{monthOperation.numberOperations}}</td>
 	        <td>{{monthOperation.numberAssistantPaid}} / {{monthOperation.numberAssistedOperations}}</td>
 	      </tr>

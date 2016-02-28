@@ -77,7 +77,7 @@
         <th>Opérateur</th>
         <th>Prénom</th>
         <th>Nom</th>
-        <th>Montant Assistant</th>
+        <th class="amount">Montant Assistant</th>
         <th>Date paiement</th>
         <th></th>
         <th></th>
@@ -88,7 +88,7 @@
         <td>{{assistance.operator}}</td>
         <td>{{assistance.firstName}}</td>
         <td>{{assistance.lastName}}</td>
-        <td>{{assistance.amount}}</td>
+        <td class="amount">{{assistance.amount | toFixed : 2}}</td>
         <td>{{assistance.paidDate | date:'dd.MM.yyyy'}}</td>
         <td><i class="glyphicon glyphicon-trash" ng-click="delete(assistance.id)" title="id: {{assistance.id}}"></i></td>
         <td><i class="glyphicon glyphicon-pencil" ng-click="modify(assistance)"></i></td>

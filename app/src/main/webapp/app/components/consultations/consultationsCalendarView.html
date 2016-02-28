@@ -14,20 +14,20 @@
   <tr class="info">
     <th>Mois</th>
     <th>Année</th>
-    <th>Total consultation</th>
-    <th>Moitié prix consultation</th>
-    <th>Total materiel</th>
-    <th>Total medicaments</th>
-    <th>Prix total</th>
+    <th class="amount">Total consultation</th>
+    <th class="amount">Moitié prix consultation</th>
+    <th class="amount">Total materiel</th>
+    <th class="amount">Total medicaments</th>
+    <th class="amount">Prix total</th>
   <tr>
   <tr ng-repeat="monthResume in monthsResume">
     <td>{{monthResume.month}}</td>
     <td>{{monthResume.year}}</td>
-    <td>{{monthResume.consultationPrice | toFixed : 2}}</td>
-    <td>{{monthResume.consultationPrice / 2 | toFixed : 2}}</td>
-    <td>{{monthResume.materialPrice | toFixed : 2}}</td>
-    <td>{{monthResume.medicamentPrice | toFixed : 2}}</td>
-    <td>{{monthResume.consultationPrice + monthResume.materialPrice + monthResume.medicamentPrice | toFixed : 2}}</td>
+    <td class="amount">{{monthResume.consultationPrice | toFixed : 2}}</td>
+    <td class="amount">{{monthResume.consultationPrice / 2 | toFixed : 2}}</td>
+    <td class="amount">{{monthResume.materialPrice | toFixed : 2}}</td>
+    <td class="amount">{{monthResume.medicamentPrice | toFixed : 2}}</td>
+    <td class="amount">{{monthResume.consultationPrice + monthResume.materialPrice + monthResume.medicamentPrice | toFixed : 2}}</td>
   </tr>
 </table>
 
