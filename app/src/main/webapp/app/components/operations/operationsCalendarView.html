@@ -29,9 +29,9 @@
 	      <tr ng-repeat="monthOperation in allMonthOperations" ng-click="changeLocation('#/operations/day/15.' + monthOperation.month + '.' + monthOperation.year + '?openInsertPanel=true') ">
 	        <td>{{monthOperation.month}}</td>
 	        <td>{{monthOperation.year}}</td>
-	        <td>{{monthOperation.amount}}</td>
-	        <td>{{monthOperation.assistantOneAmount}}</td>
-	        <td>{{monthOperation.assistantTwoAmount}}</td>
+	        <td>{{monthOperation.amount | toFixed : 2}}</td>
+	        <td>{{monthOperation.assistantOneAmount | toFixed : 2}}</td>
+	        <td>{{monthOperation.assistantTwoAmount | toFixed : 2}}</td>
 	        <td>{{monthOperation.numberPaymentsRecieved}} / {{monthOperation.numberOperations}}</td>
 	        <td>{{monthOperation.numberAssistantPaid}} / {{monthOperation.numberAssistedOperations}}</td>
 	      </tr>
