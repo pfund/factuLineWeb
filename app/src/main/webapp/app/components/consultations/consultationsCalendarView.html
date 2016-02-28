@@ -23,11 +23,11 @@
   <tr ng-repeat="monthResume in monthsResume">
     <td>{{monthResume.month}}</td>
     <td>{{monthResume.year}}</td>
-    <td>{{monthResume.consultationPrice}}</td>
-    <td>{{monthResume.consultationPrice / 2}}</td>
-    <td>{{monthResume.materialPrice}}</td>
-    <td>{{monthResume.medicamentPrice}}</td>
-    <td>{{monthResume.consultationPrice + monthResume.materialPrice + monthResume.medicamentPrice}}</td>
+    <td>{{monthResume.consultationPrice | toFixed : 2}}</td>
+    <td>{{monthResume.consultationPrice / 2 | toFixed : 2}}</td>
+    <td>{{monthResume.materialPrice | toFixed : 2}}</td>
+    <td>{{monthResume.medicamentPrice | toFixed : 2}}</td>
+    <td>{{monthResume.consultationPrice + monthResume.materialPrice + monthResume.medicamentPrice | toFixed : 2}}</td>
   </tr>
 </table>
 
