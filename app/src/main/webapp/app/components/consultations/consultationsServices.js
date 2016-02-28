@@ -23,10 +23,15 @@ factuLineServices.factory('ConsultsFactory', ['$resource', 'restHost',
   }
 ]);
 
-factuLineServices.factory('MonthsFactory', ['$resource', 'restHost',
-  function($resource, restHost) {
-    return $resource(restHost + '/factuLineRest/months/', {}, {
-      getMonths: {method:'GET', isArray:true}
-    });
+factuLineServices.factory('MonthsFactory', ['$http', 'restHost',
+  function($http, restHost) {
+    return {
+      getMonths: function() {
+        return $http({
+          method: 'GET',
+          url: restHost + '/factuLineRest/months/'
+        });
+      }
+    };
   }
 ]);

@@ -13,11 +13,15 @@ angular.module('myApp.consultationControllers', [])
     };
   }])
 
-  .controller('ConsultationCalendarCtrl', ['$scope', 'MonthsFactory', 
-                function($scope, MonthsFactory) {
-    MonthsFactory.getMonths({}, function(data) {
-      $scope.monthsResume = data;
-    });
+  .controller('ConsultationCalendarCtrl', ['$scope', 'MonthsFactory', '$http', 'restHost',
+                function($scope, MonthsFactory, $http, restHost) {
+    MonthsFactory.getMonths()
+        .then(function(response) {
+            $scope.monthsResumeStatus = undefined;
+            $scope.monthsResume = response.data;
+        }, function(response) {
+            $scope.monthsResumeStatus = "Erreur lors du chargement des données : " + angular.toJson(response);
+        });
   }])
 
   .controller('ConsultationCtrl', ['$scope', '$routeParams', 'ConsultRest', 'ConsultsFactory',

@@ -1,6 +1,7 @@
 <div class="container-fluid">
   <div class="row-fluid">
-  <accordion close-others="false">
+  <div ng-hide="consults">Chargement des consultations du jour...</div>
+  <accordion close-others="false" ng-show="consults">
   <accordion-group heading="Insérer une nouvelle entrée pour le {{dateConsult | date:'dd.MM.yyyy'}}" is-open="true">
 
     <form class="form-horizontal" role="form">
@@ -66,9 +67,9 @@
     </div>
     </form>
     </accordion-group>
-    </accorion>
+  </accordion>
 
-    <table class="table table-striped">
+    <table class="table table-striped" ng-show="consults">
       <tr class="info">
         <th>Prénom</th>
         <th>Nom</th>
@@ -106,7 +107,7 @@
       	<th colspan="2" />
     </table>
 
-    <p>Moitié prix consultation du jour (avec rabais) : {{getDayConsultationPriceWithRebate() / 2 | toFixed : 2}}</p>
+    <p ng-show="consults">Moitié prix consultation du jour (avec rabais) : {{getDayConsultationPriceWithRebate() / 2 | toFixed : 2}}</p>
   </div>
 </div>
 

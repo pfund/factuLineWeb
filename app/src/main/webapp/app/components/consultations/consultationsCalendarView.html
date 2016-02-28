@@ -10,7 +10,8 @@
 
 </div>
 
-<table class="table table-striped">
+<div ng-hide="monthsResume">Chargement des données de résumé de consultations mensuels...</div>
+<table class="table table-striped" ng-show="monthsResume">
   <tr class="info">
     <th>Mois</th>
     <th>Année</th>
