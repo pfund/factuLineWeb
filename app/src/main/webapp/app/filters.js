@@ -10,7 +10,7 @@ angular.module('myApp.filters', [])
   }])
   .filter('toFixed', function ($filter) {
   return function (input, places) {
-    if (isNaN(input)) return input;
+    if (!input || isNaN(input)) return input;
     return input.toFixed(places);
   };
 });
